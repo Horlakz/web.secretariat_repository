@@ -2,15 +2,22 @@ import { Link } from "react-router-dom";
 
 import Button from "@/components/ui/button";
 import Input from "@/components/ui/form/input";
+import { ACCESS_TOKEN_KEY } from "@/constants/auth";
 import { useForm } from "@/hooks/form";
 import { loginSchema } from "@/pages/auth/auth.schema";
+import { useRouter } from "@/router/router.hook";
+import { Storage } from "@/utilities/storage";
 import { useLogin } from "../auth.hook";
 
 const LoginPage = () => {
+  const storage = new Storage();
+  const router = useRouter();
+
   const form = useForm({
     schema: loginSchema,
     onSubmit: function () {
-      loginMutation.mutate();
+      storage.setItem(ACCESS_TOKEN_KEY, "test");
+      router.goTo("/");
     },
   });
 
