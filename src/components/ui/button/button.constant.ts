@@ -18,7 +18,7 @@ export const colorSchemeOutlineClasses: Record<ColorScheme, string> = {
 
 export const sizeClasses: Record<string, string> = {
   sm: "px-2 py-1 text-sm",
-  md: "px-4 py-1.5 text-base",
+  md: "px-4 py-2 text-base",
   lg: "px-6 py-3 text-lg",
 };
 

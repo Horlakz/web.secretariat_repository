@@ -26,7 +26,7 @@ export function getVariantClasses(variant: Variant, colorScheme: ColorScheme) {
     default:
       return classNames(
         colorSchemeSolidClasses[colorScheme],
-        "text-black hover:bg-opacity-80"
+        "text-white hover:bg-opacity-80"
       );
   }
 }

@@ -13,6 +13,7 @@ export interface InputProps {
   value?: string | number;
   name?: string;
   onChange?: (e: React.ChangeEvent<HTMLFormElements>) => void;
+  placeholder?: string;
   validationError?: string;
 }
 
