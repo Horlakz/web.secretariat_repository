@@ -1,4 +1,3 @@
-import Footer from "./footer";
 import Header from "./header";
 
 const ErrorPage = () => {
@@ -16,7 +15,6 @@ const ErrorPage = () => {
           <code className="bg-[#444] p-1 rounded-md">pages/error</code>
         </p>
       </main>
-      <Footer />
     </>
   );
 };
