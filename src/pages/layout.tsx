@@ -2,8 +2,8 @@ import { Outlet } from "react-router-dom";
 
 import Navigate from "@/router/navigate";
 import { useAuth } from "./auth/auth.hook";
-import Footer from "./footer";
 import Header from "./header";
+import SideBar from "./sidebar";
 
 const BaseLayout = () => {
   const { isAuthenticated } = useAuth();
@@ -11,10 +11,15 @@ const BaseLayout = () => {
   if (!isAuthenticated) return <Navigate to="/login" />;
 
   return (
-    <main>
-      <Header />
-      <Outlet />
-      <Footer />
+    <main className="flex w-full">
+      <section className="w-1/5">
+        <SideBar />
+      </section>
+
+      <section className="w-full">
+        <Header />
+        <Outlet />
+      </section>
     </main>
   );
 };
