@@ -1,20 +1,17 @@
-import Navigate from "@/router/navigate";
-import { useAuth } from "./auth/auth.hook";
+import { HiOutlinePlus } from "react-icons/hi";
+
+import nofileUploaded from "@/assets/no-file-uploaded.png";
+import Button from "@/components/ui/button";
 
 const HomePage = () => {
-  const { isAuthenticated } = useAuth();
-
-  if (isAuthenticated) return <Navigate to="/dashboard" />;
-
   return (
-    <main>
-      <section>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Id architecto
-        ipsam eum impedit veritatis at, minus nostrum iusto dolorem voluptates
-        saepe beatae delectus, repudiandae quis quam consectetur aliquam minima
-        laboriosam.
-      </section>
-    </main>
+    <section className="flex-col-center gap-4">
+      <img src={nofileUploaded} alt="No file uploaded yet" />
+      <p className="text-4xl font-medium">No file uploaded yet</p>
+      <Button icon={<HiOutlinePlus />} size="lg">
+        Upload file
+      </Button>
+    </section>
   );
 };
 
