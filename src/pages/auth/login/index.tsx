@@ -17,37 +17,43 @@ const LoginPage = () => {
   const loginMutation = useLogin(form.formData);
 
   return (
-    <form className="space-y-4 w-full">
-      <Input
-        label="Email"
-        type="email"
-        value={form.formData.email}
-        onChange={form.handleChange}
-        validationError={form.errors.email}
-      />
+    <div>
+      <h2 className="text-secondary text-4xl text-center font-medium">
+        Sign In
+      </h2>
+      <form className="space-y-4 py-6 w-full">
+        <Input
+          label="Email"
+          type="email"
+          value={form.formData.email}
+          onChange={form.handleChange}
+          validationError={form.errors.email}
+        />
 
-      <Input
-        label="Password"
-        type="password"
-        value={form.formData.password}
-        onChange={form.handleChange}
-        validationError={form.errors.password}
-      />
+        <Input
+          label="Password"
+          type="password"
+          value={form.formData.password}
+          onChange={form.handleChange}
+          validationError={form.errors.password}
+        />
 
-      <p className="flex justify-end w-full text-gray-300">
-        <Link to="/forgot-password">Forgot Password?</Link>
-      </p>
+        <p className="flex justify-end w-full">
+          <Link to="/forgot-password">Forgot Password?</Link>
+        </p>
 
-      <div className="flex-center w-full">
-        <Button
-          className="w-full flex-center"
-          isLoading={loginMutation.isLoading}
-          onClick={form.handleSubmit}
-        >
-          Sign In
-        </Button>
-      </div>
-    </form>
+        <div className="flex-center w-full">
+          <Button
+            size="lg"
+            className="w-full flex-center font-bold"
+            isLoading={loginMutation.isLoading}
+            onClick={form.handleSubmit}
+          >
+            Sign In
+          </Button>
+        </div>
+      </form>
+    </div>
   );
 };
 
