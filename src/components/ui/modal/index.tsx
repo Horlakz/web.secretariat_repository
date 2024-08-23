@@ -28,7 +28,7 @@ export function Modal(props: ModalProps) {
     <AnimatePresence>
       {props.visibility && (
         <motion.div
-          className="fixed z-20 w-full h-full left-0 top-0 py-4 px-3 md:px-6 bg-[rgba(0,0,0,0.3)] grid place-content-center"
+          className="fixed z-20 w-full h-full left-0 top-0 py-4 px-3 md:px-6 bg-[rgba(241,241,241,0.57)] grid place-content-center"
           variants={modalVariants}
           initial="hidden"
           animate="visible"
@@ -37,7 +37,7 @@ export function Modal(props: ModalProps) {
           ref={modalRef}
         >
           <motion.div
-            className="shadow-lg w-fit mx-auto relative bg-primary rounded-3xl"
+            className="shadow-lg w-fit mx-auto relative bg-white rounded-3xl"
             variants={modalVariants}
           >
             {props.children}
