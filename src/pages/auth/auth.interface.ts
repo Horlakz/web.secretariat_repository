@@ -1,5 +1,6 @@
 import { InferType } from "yup";
 
+import { ModalProps } from "@/components/ui/modal/modal.interface";
 import { MessageResponse } from "@/interface";
 import { loginSchema, registerSchema } from "./auth.schema";
 
@@ -14,3 +15,17 @@ export interface RegistrationRequestPayload
   extends InferType<typeof registerSchema> {}
 
 export type RegistrationResponsePayload = MessageResponse;
+
+export interface OtpProps {
+  value: string;
+  valueLength: number;
+  onChange: (value: string) => void;
+  color?: string;
+}
+
+export interface VerifyEmailProps
+  extends Required<Omit<ModalProps, "showCloseButton" | "children">> {
+  email: string;
+}
+
+export type VerifyEmailRequestPayload = { email: string; code: string };

@@ -1,9 +1,11 @@
+import { MessageResponse } from "@/interface";
 import { Client } from "@/services/http-client";
 import {
   LoginRequestPayload,
   LoginResponsePayload,
   RegistrationRequestPayload,
   RegistrationResponsePayload,
+  VerifyEmailRequestPayload,
 } from "./auth.interface";
 
 export class AuthService {
@@ -21,5 +23,12 @@ export class AuthService {
       RegistrationRequestPayload,
       RegistrationResponsePayload
     >("auth/register", data);
+  }
+
+  verifyEmail(data: VerifyEmailRequestPayload) {
+    return this.apiClient.post<VerifyEmailRequestPayload, MessageResponse>(
+      "auth/verify-email",
+      data
+    );
   }
 }

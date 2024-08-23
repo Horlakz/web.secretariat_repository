@@ -1,30 +1,38 @@
+import { AxiosError } from "axios";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import Button from "@/components/ui/button";
 import Input from "@/components/ui/form/input";
-import { ACCESS_TOKEN_KEY } from "@/constants/auth";
 import { useForm } from "@/hooks/form";
 import { loginSchema } from "@/pages/auth/auth.schema";
-import { useRouter } from "@/router/router.hook";
-import { Storage } from "@/utilities/storage";
 import { useLogin } from "../auth.hook";
+import VerifyEmail from "../verify-email";
 
 const LoginPage = () => {
-  const storage = new Storage();
-  const router = useRouter();
+  const [verifyEmailVisibility, setVerifyEmailVisibility] = useState(false);
+  const login = useLogin();
 
   const form = useForm({
     schema: loginSchema,
-    onSubmit: function () {
-      storage.setItem(ACCESS_TOKEN_KEY, "test");
-      router.goTo("/");
+    onSubmit: function (data) {
+      login.mutate(data, {
+        onError: (err: AxiosError<any>) => {
+          if (err.response?.data?.status == 4106) {
+            setVerifyEmailVisibility(true);
+          }
+        },
+      });
     },
   });
 
-  const loginMutation = useLogin(form.formData);
-
   return (
     <div>
+      <VerifyEmail
+        visibility={verifyEmailVisibility}
+        email={form.formData.email}
+        setVisibility={() => setVerifyEmailVisibility(false)}
+      />
       <h2 className="text-secondary text-4xl text-center font-medium">
         Sign In
       </h2>
@@ -60,7 +68,7 @@ const LoginPage = () => {
           <Button
             size="lg"
             className="w-full flex-center font-bold"
-            isLoading={loginMutation.isLoading}
+            isLoading={login.isLoading}
             onClick={form.handleSubmit}
           >
             Sign In

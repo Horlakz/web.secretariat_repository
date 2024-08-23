@@ -1,36 +1,41 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import Button from "@/components/ui/button";
 import Input from "@/components/ui/form/input";
-import { ACCESS_TOKEN_KEY } from "@/constants/auth";
 import { useForm } from "@/hooks/form";
 import { registerSchema } from "@/pages/auth/auth.schema";
-import { useRouter } from "@/router/router.hook";
-import { Storage } from "@/utilities/storage";
-import { useLogin } from "../auth.hook";
+import { useRegister } from "../auth.hook";
+import VerifyEmail from "../verify-email";
 
 const RegisterPage = () => {
-  const storage = new Storage();
-  const router = useRouter();
+  const [verifyEmailVisibility, setVerifyEmailVisibility] = useState(false);
+
+  const register = useRegister();
 
   const form = useForm({
     schema: registerSchema,
-    onSubmit: function () {
-      storage.setItem(ACCESS_TOKEN_KEY, "test");
-      router.goTo("/");
+    onSubmit: function (data) {
+      register.mutate(data, {
+        onSuccess: () => setVerifyEmailVisibility(true),
+      });
     },
   });
 
-  const loginMutation = useLogin(form.formData);
-
   return (
     <div>
+      <VerifyEmail
+        email={form.formData.email}
+        visibility={verifyEmailVisibility}
+        setVisibility={() => setVerifyEmailVisibility(false)}
+      />
       <h2 className="text-secondary text-4xl text-center font-medium">
         Sign Up
       </h2>
       <form className="space-y-4 py-6 w-full">
         <Input
           label="First Name"
+          name="firstName"
           value={form.formData.firstName}
           onChange={form.handleChange}
           validationError={form.errors.firstName}
@@ -38,6 +43,7 @@ const RegisterPage = () => {
 
         <Input
           label="Last Name"
+          name="lastName"
           value={form.formData.lastName}
           onChange={form.handleChange}
           validationError={form.errors.lastName}
@@ -53,6 +59,7 @@ const RegisterPage = () => {
 
         <Input
           label="Phone Number"
+          name="phoneNumber"
           value={form.formData.phoneNumber}
           onChange={form.handleChange}
           validationError={form.errors.phoneNumber}
@@ -77,7 +84,7 @@ const RegisterPage = () => {
           <Button
             size="lg"
             className="w-full flex-center font-bold"
-            isLoading={loginMutation.isLoading}
+            isLoading={register.isLoading}
             onClick={form.handleSubmit}
           >
             Sign Up
