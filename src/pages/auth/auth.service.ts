@@ -1,5 +1,5 @@
-import { MessageResponse } from "@/interface";
 import { Client } from "@/services/http-client";
+import { DataResponse, MessageResponse } from "@/services/interface";
 import {
   LoginRequestPayload,
   LoginResponsePayload,
@@ -12,10 +12,10 @@ export class AuthService {
   private apiClient = new Client();
 
   login(data: LoginRequestPayload) {
-    return this.apiClient.post<LoginRequestPayload, LoginResponsePayload>(
-      "auth/login",
-      data
-    );
+    return this.apiClient.post<
+      LoginRequestPayload,
+      DataResponse<LoginResponsePayload>
+    >("auth/login", data);
   }
 
   register(data: RegistrationRequestPayload) {

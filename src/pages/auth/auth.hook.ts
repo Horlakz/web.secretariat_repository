@@ -34,8 +34,8 @@ export function useLogin() {
   const loginMutation = useMutation({
     mutationFn: async (data: LoginRequestPayload) => await auth.login(data),
     onSuccess: (data) => {
-      storage.setItem(ACCESS_TOKEN_KEY, data.data.accessToken);
-      storage.setItem(REFRESH_TOKEN_KEY, data.data.refreshToken);
+      storage.setItem(ACCESS_TOKEN_KEY, data.data.data.accessToken);
+      storage.setItem(REFRESH_TOKEN_KEY, data.data.data.refreshToken);
       toast.success("login successful");
       router.goTo("/");
     },
