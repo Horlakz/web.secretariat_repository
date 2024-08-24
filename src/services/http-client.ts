@@ -61,9 +61,9 @@ export class Client {
     const refreshToken = this.storageClass.getItem(REFRESH_TOKEN_KEY) as string;
 
     const { data } = await this.post<
-      { refreshToken: string },
+      { refresh_token: string },
       LoginResponsePayload
-    >("/auth/token/refresh/", { refreshToken });
+    >("/auth/refresh-token/", { refresh_token: refreshToken });
 
     return data;
   }
