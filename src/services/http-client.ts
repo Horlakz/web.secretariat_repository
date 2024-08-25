@@ -40,6 +40,11 @@ export class Client {
         if (error.config && error?.response?.status === 401) {
           const data = await this.refreshToken();
 
+          if (!data) {
+            this.redirectToLogin();
+            return Promise.reject(error);
+          }
+
           this.storageClass.setItem(ACCESS_TOKEN_KEY, data.token);
 
           this.axiosClient.defaults.headers.common[
@@ -47,7 +52,6 @@ export class Client {
           ] = `Bearer ${data.token}`;
 
           return this.axiosClient(error.config);
-          // this.redirectToLogin();
         }
         return Promise.reject(error);
       }
@@ -67,11 +71,11 @@ export class Client {
     return data;
   }
 
-  // private async redirectToLogin() {
-  //   window.location.href = "/login";
-  //   this.storageClass.deleteItem(ACCESS_TOKEN_KEY);
-  //   this.storageClass.deleteItem(REFRESH_TOKEN_KEY);
-  // }
+  private async redirectToLogin() {
+    window.location.href = "/login";
+    this.storageClass.deleteItem(ACCESS_TOKEN_KEY);
+    this.storageClass.deleteItem(REFRESH_TOKEN_KEY);
+  }
 
   custom(config: AxiosRequestConfig) {
     return this.axiosClient(config);
