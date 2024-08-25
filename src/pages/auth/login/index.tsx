@@ -1,4 +1,3 @@
-import { AxiosError } from "axios";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -17,7 +16,7 @@ const LoginPage = () => {
     schema: loginSchema,
     onSubmit: function (data) {
       login.mutate(data, {
-        onError: (err: AxiosError<any>) => {
+        onError: (err: any) => {
           if (err.response?.data?.status == 4106) {
             setVerifyEmailVisibility(true);
           }
