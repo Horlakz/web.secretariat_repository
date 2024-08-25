@@ -1,33 +1,24 @@
 import { HiOutlinePlus } from "react-icons/hi2";
 
 import Button from "@/components/ui/button";
+import { bytesToMegaBytes } from "@/utilities/common";
+import { useQuery } from "@tanstack/react-query";
+import { AxiosResponse } from "axios";
 import { useState } from "react";
 import { SlOptions } from "react-icons/sl";
+import { IFileResponsePayload } from "./interface";
 import NoFiles from "./no-files";
 import UploadFile from "./upload-file";
 
 const HomePage = () => {
   const [visibility, setVisibility] = useState(false);
 
-  const data = [
-    {
-      name: "File1",
-      mime_type: "image/png",
-      created_at: "2023-08-23",
-    },
-    {
-      name: "File2",
-      mime_type: "application/pdf",
-      created_at: "2023-08-22",
-    },
-    {
-      name: "File3",
-      mime_type: "text/plain",
-      created_at: "2023-08-21",
-    },
-  ];
+  const query = useQuery<AxiosResponse<IFileResponsePayload>>({
+    queryKey: ["file"],
+  });
 
-  if (data.length == 0) return <NoFiles />;
+  if (query.isSuccess && query.data?.data.data.result.length == 0)
+    return <NoFiles />;
 
   return (
     <div className="p-6">
@@ -53,7 +44,10 @@ const HomePage = () => {
                 Name
               </th>
               <th className="border-b border-blue-700 py-3.5 font-medium text-left">
-                MIME Type
+                File Type
+              </th>
+              <th className="border-b border-blue-700 py-3.5 font-medium text-left">
+                Size
               </th>
               <th className="border-b border-blue-700 py-3.5 font-medium text-left">
                 Created At
@@ -62,24 +56,36 @@ const HomePage = () => {
             </tr>
           </thead>
           <tbody>
-            {data.map((row, index) => (
-              <tr key={index}>
-                <td className="border-b border-blue-700 py-3.5 flex items-center gap-2">
-                  {row.name}
-                </td>
-                <td className="border-b border-blue-700 py-3.5">
-                  {row.mime_type}
-                </td>
-                <td className="border-b border-blue-700 py-3.5">
-                  {row.created_at}
-                </td>
-                <td className="border-b border-blue-700 py-3.5">
-                  <Button variant="ghost">
-                    <SlOptions />
-                  </Button>
+            {query.isLoading && (
+              <tr>
+                <td colSpan={5} className="text-center py-3.5">
+                  Loading...
                 </td>
               </tr>
-            ))}
+            )}
+
+            {query.isSuccess &&
+              query.data.data.data.result.map((row, index) => (
+                <tr key={index}>
+                  <td className="border-b border-blue-700 py-3.5 flex items-center gap-2">
+                    {row.name}
+                  </td>
+                  <td className="border-b border-blue-700 py-3.5">
+                    {row.mime_type}
+                  </td>
+                  <td className="border-b border-blue-700 py-3.5">
+                    {bytesToMegaBytes(row.size)}MB
+                  </td>
+                  <td className="border-b border-blue-700 py-3.5">
+                    {new Date(row.created_at).toLocaleDateString()}
+                  </td>
+                  <td className="border-b border-blue-700 py-3.5">
+                    <Button variant="ghost">
+                      <SlOptions />
+                    </Button>
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>
