@@ -66,3 +66,7 @@ export function popKeys<T extends AnyObject, K extends keyof T>(
 export function formatCurrency(price: number) {
   return `₦ ${new Intl.NumberFormat().format(price)}`;
 }
+
+export function bytesToMegaBytes(bytes: number) {
+  return (bytes / 1024 / 1024).toFixed(2);
+}
