@@ -8,7 +8,7 @@ import axios, {
 import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY } from "@/constants/auth";
 import { API_BASE_URL } from "@/constants/env-vars";
 import { Storage } from "@/utilities/storage";
-import { LoginResponsePayload } from "../pages/auth/auth.interface";
+import { RefreshAccessTokenResponsePayload } from "../pages/auth/auth.interface";
 
 export class Client {
   private axiosClient: AxiosInstance;
@@ -40,12 +40,11 @@ export class Client {
         if (error.config && error?.response?.status === 401) {
           const data = await this.refreshToken();
 
-          this.storageClass.setItem(ACCESS_TOKEN_KEY, data.accessToken);
-          this.storageClass.setItem(REFRESH_TOKEN_KEY, data.refreshToken);
+          this.storageClass.setItem(ACCESS_TOKEN_KEY, data.token);
 
           this.axiosClient.defaults.headers.common[
             "Authorization"
-          ] = `Bearer ${data.accessToken}`;
+          ] = `Bearer ${data.token}`;
 
           return this.axiosClient(error.config);
           // this.redirectToLogin();
@@ -62,7 +61,7 @@ export class Client {
 
     const { data } = await this.post<
       { refresh_token: string },
-      LoginResponsePayload
+      RefreshAccessTokenResponsePayload
     >("/auth/refresh-token/", { refresh_token: refreshToken });
 
     return data;
