@@ -5,8 +5,10 @@ export interface UploadFileProps
   extends Required<Omit<ModalProps, "showCloseButton" | "children">> {}
 
 export interface ShareProps extends UploadFileProps {
-  fileId: string;
+  file: IFilePayload;
 }
+
+export interface ConfirmDeleteProps extends ShareProps {}
 
 export interface IFile {
   file: File;
@@ -20,9 +22,12 @@ export interface ICreateFileRequest {
   size: number;
 }
 
-export type IFileResponsePayload = ResultReponse<
-  (ICreateFileRequest & { id: string; created_at: string })[]
->;
+export interface IFilePayload extends ICreateFileRequest {
+  id: string;
+  created_at: string;
+}
+
+export type IFileResponsePayload = ResultReponse<IFilePayload[]>;
 
 export interface IShareFileRequest {
   file_id: string;

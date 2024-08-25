@@ -9,7 +9,8 @@ import { SlOptions } from "react-icons/sl";
 
 import Button from "@/components/ui/button";
 import { bytesToMegaBytes } from "@/utilities/common";
-import { IFileResponsePayload } from "./interface";
+import ConfirmDelete from "./confirm-delete";
+import { IFilePayload, IFileResponsePayload } from "./interface";
 import NoFiles from "./no-files";
 import Share from "./share";
 import UploadFile from "./upload-file";
@@ -17,8 +18,16 @@ import UploadFile from "./upload-file";
 const HomePage = () => {
   const [uploadFileVisibility, setUploadFileVisibility] = useState(false);
   const [shareVisibility, setShareVisibility] = useState(false);
+  const [deleteVisibility, setDeleteVisibility] = useState(false);
   const [show, setShow] = useState<null | number>(null);
-  const [fileId, setFileId] = useState<string>("");
+  const [file, setFile] = useState<IFilePayload>({
+    id: "",
+    name: "",
+    key: "",
+    mime_type: "",
+    size: 0,
+    created_at: "",
+  });
   const ref = useRef<HTMLTableCellElement>(null);
 
   function handleOutsideClick(event: MouseEvent) {
@@ -49,9 +58,14 @@ const HomePage = () => {
         setVisibility={() => setUploadFileVisibility(false)}
       />
       <Share
-        fileId={fileId}
+        file={file}
         visibility={shareVisibility}
         setVisibility={() => setShareVisibility(false)}
+      />
+      <ConfirmDelete
+        file={file}
+        visibility={deleteVisibility}
+        setVisibility={() => setDeleteVisibility(false)}
       />
       <div className="w-full flex justify-start">
         <Button
@@ -114,7 +128,7 @@ const HomePage = () => {
                       variant="ghost"
                       onClick={() => {
                         setShow(index);
-                        setFileId(row.id);
+                        setFile(row);
                       }}
                     >
                       <SlOptions />
@@ -144,6 +158,7 @@ const HomePage = () => {
                                 variant="ghost"
                                 icon={<RiDeleteBin6Line />}
                                 colorScheme="danger"
+                                onClick={() => setDeleteVisibility(true)}
                               >
                                 Delete
                               </Button>

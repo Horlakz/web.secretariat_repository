@@ -21,10 +21,6 @@ export function useCreateFile() {
   return {
     mutate: mutation.mutate,
     isLoading: mutation.isPending,
-    error: mutation.error,
-    isSuccess: mutation.isSuccess,
-    isError: mutation.isError,
-    reset: mutation.reset,
   };
 }
 
@@ -44,9 +40,23 @@ export function useShareFile() {
   return {
     mutate: mutation.mutate,
     isLoading: mutation.isPending,
-    error: mutation.error,
-    isSuccess: mutation.isSuccess,
-    isError: mutation.isError,
-    reset: mutation.reset,
+  };
+}
+
+export function useDeleteFile() {
+  const client = new HttpClient();
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: (id: string) => client.delete(`/file/${id}`),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["file"] });
+      toast.success("File deleted successfully");
+    },
+  });
+
+  return {
+    mutate: mutation.mutate,
+    isLoading: mutation.isPending,
   };
 }

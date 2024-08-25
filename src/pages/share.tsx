@@ -13,7 +13,7 @@ function Share(props: ShareProps) {
   function handleSubmit(e: React.FormEvent<HTMLButtonElement>) {
     e.preventDefault();
 
-    const data = { to_email: email, file_id: props.fileId };
+    const data = { to_email: email, file_id: props.file.id };
 
     shareFile.mutate(data, {
       onSuccess: () => {
