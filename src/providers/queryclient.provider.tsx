@@ -3,6 +3,7 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { toast } from "react-hot-toast";
 
 import { HttpClient } from "@/services/http-client";
 import { joinPaths } from "@/utilities/common";
@@ -17,6 +18,10 @@ const queryClient = new QueryClient({
       queryFn: async function ({ queryKey }) {
         return await client.get(joinPaths(...(queryKey as string[])));
       },
+    },
+    mutations: {
+      onError: (error: any) =>
+        toast.error(error.response?.data.message ?? error.message),
     },
   },
 });

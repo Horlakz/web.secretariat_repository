@@ -1,5 +1,4 @@
 import { useMutation } from "@tanstack/react-query";
-import { AxiosError } from "axios";
 import toast from "react-hot-toast";
 
 import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY } from "@/constants/auth";
@@ -39,9 +38,6 @@ export function useLogin() {
       toast.success("login successful");
       router.goTo("/");
     },
-    onError: (err: AxiosError<Error>) => {
-      toast.error(err?.response?.data.message || err?.message);
-    },
   });
 
   return {
@@ -59,8 +55,6 @@ export function useRegister() {
     onSuccess: () => {
       toast.success("Registeration successfull");
     },
-    onError: (err: AxiosError<Error>) =>
-      toast.error(err?.response?.data.message ?? err?.message),
   });
 
   return {
@@ -80,8 +74,6 @@ export function useVerifyEmail() {
       toast.success("Email verified successfully");
       router.goTo("/login");
     },
-    onError: (err: AxiosError<Error>) =>
-      toast.error(err?.response?.data.message ?? err?.message),
   });
 
   return {
