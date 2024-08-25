@@ -12,10 +12,10 @@ function ConfirmDelete(props: ConfirmDeleteProps) {
       setVisibility={props.setVisibility}
       showCloseButton
     >
-      <div className="flex-col-center gap-6 p-14 min-w-[30rem]">
+      <div className="flex-col-center gap-6 p-14 max-w-[30rem]">
         <h4 className="text-2xl font-semibold text-danger">Delete File</h4>
 
-        <p>
+        <p className="text-center">
           Are you sure you want to delete&nbsp;
           <span className="font-semibold">{props.file.name}</span>?
         </p>

@@ -29,8 +29,13 @@ function Share(props: ShareProps) {
       setVisibility={props.setVisibility}
       showCloseButton
     >
-      <div className="flex-col-center gap-6 p-14 min-w-[30rem]">
+      <div className="flex-col-center gap-6 p-14 max-w-[30rem]">
         <h4 className="text-2xl font-semibold">Share File</h4>
+
+        <p className="text-center">
+          Enter the email address of the user you want to share&nbsp;
+          <span className="font-semibold">{props.file.name}</span> with.
+        </p>
 
         <form className="w-full flex items-end gap-3">
           <Input
