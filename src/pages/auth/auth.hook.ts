@@ -3,13 +3,16 @@ import toast from "react-hot-toast";
 
 import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY } from "@/constants/auth";
 import { useRouter } from "@/router/router.hook";
+import { HttpClient } from "@/services/http-client";
+import { DataResponse, MessageResponse } from "@/services/interface";
 import { Storage } from "@/utilities/storage";
 import {
   LoginRequestPayload,
+  LoginResponsePayload,
   RegistrationRequestPayload,
+  RegistrationResponsePayload,
   VerifyEmailRequestPayload,
 } from "./auth.interface";
-import { AuthService } from "./auth.service";
 
 export function useAuth() {
   const storage = new Storage();
@@ -27,11 +30,15 @@ export function useAuth() {
 
 export function useLogin() {
   const storage = new Storage();
-  const auth = new AuthService();
+  const auth = new HttpClient();
   const router = useRouter();
 
   const loginMutation = useMutation({
-    mutationFn: async (data: LoginRequestPayload) => await auth.login(data),
+    mutationFn: async (data: LoginRequestPayload) =>
+      await auth.post<LoginRequestPayload, DataResponse<LoginResponsePayload>>(
+        "auth/login",
+        data
+      ),
     onSuccess: (data) => {
       storage.setItem(ACCESS_TOKEN_KEY, data.data.data.accessToken);
       storage.setItem(REFRESH_TOKEN_KEY, data.data.data.refreshToken);
@@ -47,11 +54,14 @@ export function useLogin() {
 }
 
 export function useRegister() {
-  const auth = new AuthService();
+  const auth = new HttpClient();
 
   const registerMutation = useMutation({
     mutationFn: async (data: RegistrationRequestPayload) =>
-      await auth.register(data),
+      await auth.post<RegistrationRequestPayload, RegistrationResponsePayload>(
+        "auth/register",
+        data
+      ),
     onSuccess: () => {
       toast.success("Registeration successfull");
     },
@@ -64,12 +74,15 @@ export function useRegister() {
 }
 
 export function useVerifyEmail() {
-  const auth = new AuthService();
+  const auth = new HttpClient();
   const router = useRouter();
 
   const verifyEmailMutation = useMutation({
     mutationFn: async (data: VerifyEmailRequestPayload) =>
-      await auth.verifyEmail(data),
+      await auth.post<VerifyEmailRequestPayload, MessageResponse>(
+        "auth/verify-email",
+        data
+      ),
     onSuccess: () => {
       toast.success("Email verified successfully");
       router.goTo("/login");
