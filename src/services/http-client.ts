@@ -10,7 +10,7 @@ import { API_BASE_URL } from "@/constants/env-vars";
 import { Storage } from "@/utilities/storage";
 import { RefreshAccessTokenResponsePayload } from "../pages/auth/auth.interface";
 
-export class Client {
+export class HttpClient {
   private axiosClient: AxiosInstance;
   private readonly storageClass = new Storage();
 

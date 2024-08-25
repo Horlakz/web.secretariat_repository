@@ -4,10 +4,10 @@ import {
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
-import { Client } from "@/services/http-client";
+import { HttpClient } from "@/services/http-client";
 import { joinPaths } from "@/utilities/common";
 
-const client = new Client();
+const client = new HttpClient();
 
 const queryClient = new QueryClient({
   defaultOptions: {
