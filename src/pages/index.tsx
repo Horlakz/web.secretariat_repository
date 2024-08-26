@@ -9,6 +9,7 @@ import { SlOptions } from "react-icons/sl";
 
 import Button from "@/components/ui/button";
 import { bytesToMegaBytes } from "@/utilities/common";
+import { MdOutlineFileDownload } from "react-icons/md";
 import ConfirmDelete from "./confirm-delete";
 import { IFilePayload, IFileResponsePayload } from "./interface";
 import NoFiles from "./no-files";
@@ -164,6 +165,25 @@ const HomePage = () => {
                                 className="px-4 py-2.5"
                               >
                                 Delete
+                              </Button>
+                            </li>
+                            <li>
+                              <Button
+                                variant="ghost"
+                                icon={<MdOutlineFileDownload size={18} />}
+                                colorScheme="info"
+                                onClick={() => {
+                                  const url = `https://api.thryvo.hndwok.com/v1/file/019170cf-30c6-79e9-a93a-aa903f5a7f2d/${row.key}`;
+                                  const link = document.createElement("a");
+                                  link.href = url;
+                                  link.download = row.name;
+                                  document.body.appendChild(link);
+                                  link.click();
+                                  document.body.removeChild(link);
+                                }}
+                                className="px-4 py-2.5"
+                              >
+                                Download
                               </Button>
                             </li>
                           </ul>
