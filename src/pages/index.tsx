@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { AxiosResponse } from "axios";
 import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 import { HiOutlinePlus } from "react-icons/hi2";
 import { RiDeleteBin6Line, RiShareForward2Fill } from "react-icons/ri";
@@ -31,19 +31,19 @@ const HomePage = () => {
   });
   const ref = useRef<HTMLTableCellElement>(null);
 
-  function handleOutsideClick(event: MouseEvent) {
-    // If the click is outside the dropdown, close it
-    if (ref.current && !ref.current.contains(event.target as Node)) {
-      setShow(null);
-    }
-  }
+  // function handleOutsideClick(event: MouseEvent) {
+  //   // If the click is outside the dropdown, close it
+  //   if (ref.current && !ref.current.contains(event.target as Node)) {
+  //     setShow(null);
+  //   }
+  // }
 
-  useEffect(() => {
-    document.addEventListener("mousedown", handleOutsideClick);
-    return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
-    };
-  }, []);
+  // useEffect(() => {
+  //   document.addEventListener("mousedown", handleOutsideClick);
+  //   return () => {
+  //     document.removeEventListener("mousedown", handleOutsideClick);
+  //   };
+  // }, []);
 
   const query = useQuery<AxiosResponse<IFileResponsePayload>>({
     queryKey: ["file"],
@@ -128,7 +128,8 @@ const HomePage = () => {
                     <Button
                       variant="ghost"
                       onClick={() => {
-                        setShow(index);
+                        // FIX: use outside click to close dropdown
+                        setShow(show === index ? null : index);
                         setFile(row);
                       }}
                     >
@@ -139,7 +140,7 @@ const HomePage = () => {
                     <AnimatePresence>
                       {show === index && (
                         <motion.div
-                          className="absolute top-10 right-0 bg-white shadow-md rounded-lg z-20"
+                          className="absolute top-10 right-0 bg-white shadow-md rounded-lg z-10"
                           initial={{ opacity: 0, y: -10 }}
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: -10 }}
@@ -150,7 +151,10 @@ const HomePage = () => {
                               <Button
                                 variant="ghost"
                                 icon={<RiShareForward2Fill />}
-                                onClick={() => setShareVisibility(true)}
+                                onClick={() => {
+                                  setShow(null);
+                                  setShareVisibility(true);
+                                }}
                                 className="px-4 py-2.5"
                               >
                                 Share
@@ -161,7 +165,10 @@ const HomePage = () => {
                                 variant="ghost"
                                 icon={<RiDeleteBin6Line />}
                                 colorScheme="danger"
-                                onClick={() => setDeleteVisibility(true)}
+                                onClick={() => {
+                                  setShow(null);
+                                  setDeleteVisibility(true);
+                                }}
                                 className="px-4 py-2.5"
                               >
                                 Delete
@@ -180,6 +187,7 @@ const HomePage = () => {
                                   document.body.appendChild(link);
                                   link.click();
                                   document.body.removeChild(link);
+                                  setShow(null);
                                 }}
                                 className="px-4 py-2.5"
                               >
