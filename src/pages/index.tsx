@@ -134,21 +134,23 @@ const HomePage = () => {
                       <SlOptions />
                     </Button>
 
+                    {/* TODO: add download and maybe view file */}
                     <AnimatePresence>
                       {show === index && (
                         <motion.div
-                          className="absolute top-10 right-0 bg-white shadow-md rounded-lg p-2 z-10"
+                          className="absolute top-10 right-0 bg-white shadow-md rounded-lg z-20"
                           initial={{ opacity: 0, y: -10 }}
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: -10 }}
                           transition={{ duration: 0.2 }}
                         >
-                          <ul className="flex flex-col gap-2 px-4">
+                          <ul className="flex flex-col gap-2">
                             <li>
                               <Button
                                 variant="ghost"
                                 icon={<RiShareForward2Fill />}
                                 onClick={() => setShareVisibility(true)}
+                                className="px-4 py-2.5"
                               >
                                 Share
                               </Button>
@@ -159,6 +161,7 @@ const HomePage = () => {
                                 icon={<RiDeleteBin6Line />}
                                 colorScheme="danger"
                                 onClick={() => setDeleteVisibility(true)}
+                                className="px-4 py-2.5"
                               >
                                 Delete
                               </Button>
