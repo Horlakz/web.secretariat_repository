@@ -108,7 +108,7 @@ const HomePage = () => {
             {query.isSuccess &&
               query.data.data.data.result.map((row, index) => (
                 <tr key={index}>
-                  <td className="border-b border-blue-700 py-3.5 flex items-center gap-2">
+                  <td className="border-b border-blue-700 py-3.5">
                     {row.name}
                   </td>
                   <td className="border-b border-blue-700 py-3.5">
