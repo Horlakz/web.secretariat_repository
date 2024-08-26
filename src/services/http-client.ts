@@ -45,11 +45,11 @@ export class HttpClient {
             return Promise.reject(error);
           }
 
-          this.storageClass.setItem(ACCESS_TOKEN_KEY, data.token);
+          this.storageClass.setItem(ACCESS_TOKEN_KEY, data.data.token);
 
           this.axiosClient.defaults.headers.common[
             "Authorization"
-          ] = `Bearer ${data.token}`;
+          ] = `Bearer ${data.data.token}`;
 
           return this.axiosClient(error.config);
         }

@@ -1,7 +1,7 @@
 import { InferType } from "yup";
 
 import { ModalProps } from "@/components/ui/modal/modal.interface";
-import { MessageResponse } from "@/services/interface";
+import { DataResponse, MessageResponse } from "@/services/interface";
 import { loginSchema, registerSchema } from "./auth.schema";
 
 export interface LoginRequestPayload extends InferType<typeof loginSchema> {}
@@ -11,9 +11,12 @@ export interface LoginResponsePayload {
   refreshToken: string;
 }
 
-export interface RefreshAccessTokenResponsePayload {
+interface RefreshTokenResponseData {
   token: string;
 }
+
+export interface RefreshAccessTokenResponsePayload
+  extends DataResponse<RefreshTokenResponseData> {}
 
 export interface RegistrationRequestPayload
   extends InferType<typeof registerSchema> {}
