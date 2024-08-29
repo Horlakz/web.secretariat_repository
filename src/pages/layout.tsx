@@ -12,7 +12,7 @@ const BaseLayout = () => {
 
   return (
     <main className="flex w-full">
-      <section className="w-1/5">
+      <section className="w-1/5 sm:block hidden">
         <SideBar />
       </section>
 
