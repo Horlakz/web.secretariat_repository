@@ -26,6 +26,7 @@ const HomePage = () => {
     name: "",
     key: "",
     mime_type: "",
+    ext: "",
     size: 0,
     created_at: "",
   });
@@ -112,9 +113,7 @@ const HomePage = () => {
                   <td className="border-b border-blue-700 py-3.5">
                     {row.name}
                   </td>
-                  <td className="border-b border-blue-700 py-3.5">
-                    {row.mime_type}
-                  </td>
+                  <td className="border-b border-blue-700 py-3.5">{row.ext}</td>
                   <td className="border-b border-blue-700 py-3.5">
                     {bytesToMegaBytes(row.size)}MB
                   </td>

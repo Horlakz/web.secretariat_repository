@@ -25,6 +25,7 @@ export interface ICreateFileRequest {
 export interface IFilePayload extends ICreateFileRequest {
   id: string;
   created_at: string;
+  ext: string;
 }
 
 export type IFileResponsePayload = ResultReponse<IFilePayload[]>;
