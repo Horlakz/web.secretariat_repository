@@ -54,7 +54,7 @@ const HomePage = () => {
     return <NoFiles />;
 
   return (
-    <div className="p-6">
+    <div className="sm:p-6 py-6 px-4">
       <UploadFile
         visibility={uploadFileVisibility}
         setVisibility={() => setUploadFileVisibility(false)}
