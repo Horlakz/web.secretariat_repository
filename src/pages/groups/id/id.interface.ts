@@ -32,6 +32,10 @@ export interface ChatProps {
 interface ChatItem {
   id: string;
   message: string;
+  file?: {
+    name: string;
+    url: string;
+  };
   sender: {
     id: string;
     name: string;

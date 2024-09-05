@@ -108,6 +108,44 @@ const GroupPage = () => {
       },
       time: "12:08 PM",
     },
+    {
+      id: "10",
+      message: "I'm ready. use this project file",
+      file: {
+        name: "project-file.pdf",
+        url: "https://example.com/project-file.pdf",
+      },
+      sender: { id: "7e398844-4d06-4907-9ae8-2bbf1e33268c", name: "John Doe" },
+      time: "12:09 PM",
+    },
+    {
+      id: "11",
+      message: "I will check the file now.",
+      sender: {
+        id: "c051e77f-8568-4102-8382-ddc9aeb96a33",
+        name: "Akinbule Daniel",
+      },
+      time: "12:10 PM",
+    },
+    {
+      id: "12",
+      message: "I will also check the file.",
+      sender: {
+        id: userId,
+        name: "Diekoloreoluwa David",
+      },
+      time: "12:11 PM",
+    },
+    {
+      id: "13",
+      message: "This is the updated file",
+      file: {
+        name: "updated-project-file.pdf",
+        url: "https://example.com/updated-project-file.pdf",
+      },
+      sender: { id: "7e398844-4d06-4907-9ae8-2bbf1e33268c", name: "John Doe" },
+      time: "12:12 PM",
+    },
   ];
 
   return (

@@ -1,4 +1,6 @@
+import Button from "@/components/ui/button";
 import classNames from "classnames";
+import { RiFileTextLine } from "react-icons/ri";
 import { ChatProps } from "./id.interface";
 
 function Chat(props: ChatProps) {
@@ -28,6 +30,15 @@ function Chat(props: ChatProps) {
               {item.sender.name}
               {item.sender.id === props.userId && " (You)"}
             </span>
+            {item.file && (
+              <Button
+                variant="ghost"
+                icon={<RiFileTextLine size={44} />}
+                className="px-3 py-2 mb-2 w-full rounded-none bg-brand text-white"
+              >
+                <p className="underline">{item.file.name}</p>
+              </Button>
+            )}
             <p className="w-full px-16 pl-3">{item.message}</p>
             <span className="absolute bottom-1 right-2 text-xs px-1 py-0.5">
               {item.time}
