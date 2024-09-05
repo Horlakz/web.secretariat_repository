@@ -29,7 +29,7 @@ const SideBar = () => {
                 "px-4 py-2.5 hover:bg-[#D6EAF8] hover:text-[#2B6CB0]",
                 {
                   "bg-[#d4ebf7] text-[#2B6CB0] hover:bg-[#D6EAF8] hover:text-[#2B6CB0]":
-                    router.pathname === item.path,
+                    router.pathname.split("/")[1] === item.path.split("/")[1],
                 }
               )}
             >
