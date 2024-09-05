@@ -37,31 +37,40 @@ function ChatInput() {
   return (
     <div className="absolute bottom-5 w-full py-2 px-10">
       <div className="bg-[#ced9e8] rounded-3xl">
-        {file && (
-          <div className="flex items-center justify-between gap-2 p-6">
-            <RiFileTextLine size={32} />
-            <div className="w-4/6 space-y-2">
-              <span className="">{file?.name}</span>
-              <div className="w-full bg-white rounded-full overflow-hidden">
-                <div
-                  className="bg-success h-2 rounded-full"
-                  style={{
-                    width: `100%`,
-                  }}
-                />
-              </div>
-            </div>
-
-            <Button
-              variant="ghost"
-              onClick={() => {
-                setFile(null);
-              }}
+        <AnimatePresence>
+          {file && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 10 }}
+              transition={{ duration: 0.2 }}
+              style={{ transformOrigin: "bottom" }}
+              className="flex items-center justify-between gap-2 p-6"
             >
-              <RiCloseLine color="red" size={28} />
-            </Button>
-          </div>
-        )}
+              <RiFileTextLine size={32} />
+              <div className="w-4/6 space-y-2">
+                <span className="">{file?.name}</span>
+                <div className="w-full bg-white rounded-full overflow-hidden">
+                  <div
+                    className="bg-success h-2 rounded-full"
+                    style={{
+                      width: `100%`,
+                    }}
+                  />
+                </div>
+              </div>
+
+              <Button
+                variant="ghost"
+                onClick={() => {
+                  setFile(null);
+                }}
+              >
+                <RiCloseLine color="red" size={28} />
+              </Button>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         <div className="w-full rounded-full flex justify-between gap-2 px-6">
           <Button
