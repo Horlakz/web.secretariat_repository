@@ -19,9 +19,7 @@ const SettingsPage = () => {
               {user.data?.data.firstName + " " + user.data?.data.lastName}
             </h3>
           )}
-          <p className="text-brand font-semibold text-lg">
-            Faculty of Engineering
-          </p>
+          <p className="text-brand font-semibold text-lg">Faculty of Science</p>
         </div>
       </section>
 
