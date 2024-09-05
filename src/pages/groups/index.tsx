@@ -30,16 +30,6 @@ const GroupsPage = () => {
               name: "Level 3",
               color: "#d9f7f7",
             },
-            {
-              id: "7e398844-4d06-4907-9ae8-2bbf1e33268c",
-              name: "Level 4",
-              color: "#d7d7f4",
-            },
-            {
-              id: "d80cb1eb-fac6-4579-b2f9-ca735324bcde",
-              name: "Level 5",
-              color: "#f4dede",
-            },
           ].map((item, i) => (
             <div
               key={i}
