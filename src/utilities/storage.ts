@@ -10,7 +10,7 @@ interface StorageInterface {
 class CookieStorage implements StorageInterface {
   setItem(key: string, value: string) {
     return Cookies.set(key, value, {
-      expires: 0.5,
+      expires: 7,
       sameSite: "strict",
     });
   }
