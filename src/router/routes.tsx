@@ -29,7 +29,7 @@ const routes: RouteObject[] = [
   },
   // Settings routes
   {
-    path: "/settings/",
+    path: "/setting/",
     element: <BaseLayout />,
     children: [{ path: "", element: <SettingsPage /> }],
   },
