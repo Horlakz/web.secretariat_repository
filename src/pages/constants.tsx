@@ -4,6 +4,6 @@ import { PiSquaresFourLight } from "react-icons/pi";
 
 export const menus = [
   { icon: PiSquaresFourLight, label: "Dashboard", path: "/" },
-  { icon: HiOutlineUsers, label: "Levels", path: "/levels" },
+  { icon: HiOutlineUsers, label: "Groups", path: "/groups" },
   { icon: IoSettingsOutline, label: "Settings", path: "/settings" },
 ];
